@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="personal_blue">#448AFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="work_green">#00E676</color>
+    <string name="app_name">WorkPlace Camera</string>
+    <style name="ShapeAppearance.Material3.Corner.Full" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="Theme.WorkPlaceCamera" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">#000000</item>
+        <item name="android:navigationBarColor">#000000</item>
+    </style>
+</resources>
