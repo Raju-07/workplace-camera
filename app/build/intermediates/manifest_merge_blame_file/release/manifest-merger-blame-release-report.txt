@@ -1,0 +1,156 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.workplacecamera"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-feature
+11-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:4:5-6:35
+12        android:name="android.hardware.camera.any"
+12-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:5:9-51
+13        android:required="true" />
+13-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:6:9-32
+14
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:7:5-65
+15-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:7:22-62
+16    <!-- Required on Android 11 to see images moved by other apps -->
+17    <uses-permission
+17-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:9:5-11:38
+18        android:name="android.permission.READ_EXTERNAL_STORAGE"
+18-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:10:9-64
+19        android:maxSdkVersion="32" />
+19-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:11:9-35
+20
+21    <permission
+21-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:22:5-24:47
+22        android:name="com.example.workplacecamera.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+22-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:23:9-81
+23        android:protectionLevel="signature" />
+23-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:24:9-44
+24
+25    <uses-permission android:name="com.example.workplacecamera.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+25-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:26:5-97
+25-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
+26
+27    <application
+27-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:13:5-29:19
+28        android:allowBackup="true"
+28-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:14:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.12.0] /home/rajuy/.gradle/caches/transforms-3/d1e4a685b1001794fbcfe4ee9c157a7e/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
+30        android:extractNativeLibs="false"
+31        android:icon="@android:drawable/ic_menu_camera"
+31-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:15:9-56
+32        android:label="@string/app_name"
+32-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:16:9-41
+33        android:supportsRtl="true"
+33-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:17:9-35
+34        android:theme="@style/Theme.WorkPlaceCamera" >
+34-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:18:9-53
+35        <activity
+35-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:20:9-27:20
+36            android:name="com.example.workplacecamera.MainActivity"
+36-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:21:13-41
+37            android:exported="true" >
+37-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:22:13-36
+38            <intent-filter>
+38-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:23:13-26:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:24:17-69
+39-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:24:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:25:17-77
+41-->/home/rajuy/Desktop/workplace-camera/app/src/main/AndroidManifest.xml:25:27-74
+42            </intent-filter>
+43        </activity>
+44
+45        <service
+45-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:24:9-33:19
+46            android:name="androidx.camera.core.impl.MetadataHolderService"
+46-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:25:13-75
+47            android:enabled="false"
+47-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:26:13-36
+48            android:exported="false" >
+48-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:27:13-37
+49            <meta-data
+49-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:30:13-32:89
+50                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+50-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:31:17-103
+51                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+51-->[androidx.camera:camera-camera2:1.3.4] /home/rajuy/.gradle/caches/transforms-3/5cfd6db3fa73427ffa44edfa937784bb/transformed/jetified-camera-camera2-1.3.4/AndroidManifest.xml:32:17-86
+52        </service>
+53
+54        <provider
+54-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+55            android:name="androidx.startup.InitializationProvider"
+55-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+56            android:authorities="com.example.workplacecamera.androidx-startup"
+56-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+57            android:exported="false" >
+57-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+58            <meta-data
+58-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+59                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+59-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+60                android:value="androidx.startup" />
+60-->[androidx.emoji2:emoji2:1.2.0] /home/rajuy/.gradle/caches/transforms-3/bc470873fdd23c33cd7d3c06f37ee37c/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+61            <meta-data
+61-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/rajuy/.gradle/caches/transforms-3/1ddc35283035632c541291ee9b2d67ad/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+62                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+62-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/rajuy/.gradle/caches/transforms-3/1ddc35283035632c541291ee9b2d67ad/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+63                android:value="androidx.startup" />
+63-->[androidx.lifecycle:lifecycle-process:2.6.1] /home/rajuy/.gradle/caches/transforms-3/1ddc35283035632c541291ee9b2d67ad/transformed/jetified-lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+64            <meta-data
+64-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+65                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+65-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+66                android:value="androidx.startup" />
+66-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+67        </provider>
+68
+69        <receiver
+69-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+70            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+70-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+71            android:directBootAware="false"
+71-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+72            android:enabled="true"
+72-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+73            android:exported="true"
+73-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+74            android:permission="android.permission.DUMP" >
+74-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+75            <intent-filter>
+75-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+76                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+76-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+76-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+77            </intent-filter>
+78            <intent-filter>
+78-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+79                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+79-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+80            </intent-filter>
+81            <intent-filter>
+81-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+82                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+82-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+83            </intent-filter>
+84            <intent-filter>
+84-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+85                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/rajuy/.gradle/caches/transforms-3/241fb113cd4a6ff5872aea1280246c75/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+86            </intent-filter>
+87        </receiver>
+88    </application>
+89
+90</manifest>

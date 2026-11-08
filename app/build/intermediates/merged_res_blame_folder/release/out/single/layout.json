@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.workplacecamera.app-mergeReleaseResources-35:/layout/item_gallery_image.xml",
+        "source": "com.example.workplacecamera.app-main-38:/layout/item_gallery_image.xml"
+    },
+    {
+        "merged": "com.example.workplacecamera.app-mergeReleaseResources-35:/layout/activity_main.xml",
+        "source": "com.example.workplacecamera.app-main-38:/layout/activity_main.xml"
+    }
+]
