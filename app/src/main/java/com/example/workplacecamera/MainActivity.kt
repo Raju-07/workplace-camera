@@ -1,8 +1,10 @@
 package com.example.workplacecamera
 
 import android.Manifest
+import android.content.ClipData
 import android.content.ContentUris
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -13,11 +15,14 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -64,17 +69,24 @@ class MainActivity : AppCompatActivity() {
     private var camera: Camera? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var vibrator: Vibrator
     private var isTorchOn: Boolean = false
 
     private val aspectRatios = listOf("4:3", "1:1", "16:9")
     private var currentRatioIndex = 0
 
+    private val timerOptions = listOf(0, 3, 5, 10)
+    private var currentTimerIndex = 0
+    private var activeCountDownTimer: CountDownTimer? = null
+    private var isCountingDown = false
+
+    private var currentExposureIndex = 0
     private lateinit var scaleGestureDetector: ScaleGestureDetector
 
     private val workplaceImageUris = mutableListOf<Uri>()
     private var galleryAdapter: GalleryAdapter? = null
+    private var topToastRunnable: Runnable? = null
 
-    // Multiple permissions launcher (Camera + Storage for imported photos)
     private val permissionsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { perms ->
@@ -93,18 +105,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
+        cameraExecutor = Executors.newFixedThreadPool(2)
 
+        initVibrator()
         checkAndRequestPermissions()
 
         setupGesturesAndControls()
         setupNoteClearButton()
         setupInAppViewer()
         setupAspectRatioToggle()
+        setupTimerToggle()
+        setupExposureControls()
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (binding.galleryOverlay.visibility == View.VISIBLE) {
+                if (isCountingDown) {
+                    cancelCountdown()
+                } else if (binding.galleryOverlay.visibility == View.VISIBLE) {
                     closeInAppViewer()
                 } else {
                     finish()
@@ -113,10 +130,57 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun initVibrator() {
+        vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+    }
+
+    private fun triggerHapticClick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(25)
+        }
+    }
+
+    private fun triggerHapticTick() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(12)
+        }
+    }
+
+    private fun showTopMessage(message: String) {
+        topToastRunnable?.let { binding.topStatusPill.removeCallbacks(it) }
+        binding.topStatusPill.text = message
+        binding.topStatusPill.alpha = 0f
+        binding.topStatusPill.visibility = View.VISIBLE
+        binding.topStatusPill.animate()
+            .alpha(1f)
+            .setDuration(150)
+            .start()
+
+        topToastRunnable = Runnable {
+            binding.topStatusPill.animate()
+                .alpha(0f)
+                .setDuration(220)
+                .withEndAction { binding.topStatusPill.visibility = View.GONE }
+                .start()
+        }
+        binding.topStatusPill.postDelayed(topToastRunnable, 1600)
+    }
+
     private fun checkAndRequestPermissions() {
         val permissionsNeeded = mutableListOf(Manifest.permission.CAMERA)
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-            // Android 11 (Oppo ColorOS) requires this to read non-app created files
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
                 permissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -136,13 +200,100 @@ class MainActivity : AppCompatActivity() {
         if (binding.galleryOverlay.visibility != View.VISIBLE) {
             when (keyCode) {
                 KeyEvent.KEYCODE_VOLUME_UP, KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                    triggerShutterFlash()
-                    takePhotoWithTimestamp()
+                    onShutterTriggered()
                     return true
                 }
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun setupTimerToggle() {
+        binding.btnTimer.setOnClickListener {
+            currentTimerIndex = (currentTimerIndex + 1) % timerOptions.size
+            val seconds = timerOptions[currentTimerIndex]
+            val label = if (seconds == 0) "⏱ Off" else "⏱ ${seconds}s"
+            binding.btnTimer.text = label
+            showTopMessage("Timer: " + if (seconds == 0) "Off" else "${seconds}s")
+            triggerHapticTick()
+        }
+    }
+
+    private fun onShutterTriggered() {
+        if (isCountingDown) {
+            cancelCountdown()
+            return
+        }
+
+        val seconds = timerOptions[currentTimerIndex]
+        if (seconds > 0) {
+            startCountdown(seconds)
+        } else {
+            triggerShutterFlash()
+            triggerHapticClick()
+            takePhotoWithTimestamp()
+        }
+    }
+
+    private fun startCountdown(totalSeconds: Int) {
+        isCountingDown = true
+        binding.tvCountdown.text = totalSeconds.toString()
+        binding.tvCountdown.visibility = View.VISIBLE
+        binding.tvCountdown.scaleX = 1.3f
+        binding.tvCountdown.scaleY = 1.3f
+        binding.tvCountdown.animate().scaleX(1f).scaleY(1f).setDuration(250).start()
+        triggerHapticTick()
+
+        activeCountDownTimer = object : CountDownTimer((totalSeconds * 1000).toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secLeft = (millisUntilFinished / 1000).toInt() + 1
+                binding.tvCountdown.text = secLeft.toString()
+                binding.tvCountdown.scaleX = 1.3f
+                binding.tvCountdown.scaleY = 1.3f
+                binding.tvCountdown.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
+                triggerHapticTick()
+            }
+
+            override fun onFinish() {
+                isCountingDown = false
+                binding.tvCountdown.visibility = View.GONE
+                triggerShutterFlash()
+                triggerHapticClick()
+                takePhotoWithTimestamp()
+            }
+        }.start()
+    }
+
+    private fun cancelCountdown() {
+        activeCountDownTimer?.cancel()
+        activeCountDownTimer = null
+        isCountingDown = false
+        binding.tvCountdown.visibility = View.GONE
+        showTopMessage("Timer Canceled")
+    }
+
+    private fun setupExposureControls() {
+        binding.btnExposureUp.setOnClickListener { adjustExposure(1) }
+        binding.btnExposureDown.setOnClickListener { adjustExposure(-1) }
+    }
+
+    private fun adjustExposure(delta: Int) {
+        val cam = camera ?: return
+        val exposureState = cam.cameraInfo.exposureState
+        if (!exposureState.isExposureCompensationSupported) return
+
+        val range = exposureState.exposureCompensationRange
+        val newIndex = (currentExposureIndex + delta).coerceIn(range.lower, range.upper)
+
+        if (newIndex != currentExposureIndex) {
+            currentExposureIndex = newIndex
+            cam.cameraControl.setExposureCompensationIndex(currentExposureIndex)
+
+            val step = exposureState.exposureCompensationStep.toFloat()
+            val evValue = currentExposureIndex * step
+            binding.tvExposureValue.text = String.format(Locale.US, "%+.1f", evValue)
+            triggerHapticTick()
+        }
     }
 
     private fun setupAspectRatioToggle() {
@@ -152,7 +303,8 @@ class MainActivity : AppCompatActivity() {
             binding.btnAspectRatio.text = ratioName
             updateViewfinderMasking(ratioName)
             bindCameraUseCases()
-            Toast.makeText(this, "Aspect Ratio: $ratioName", Toast.LENGTH_SHORT).show()
+            showTopMessage("Aspect Ratio: $ratioName")
+            triggerHapticTick()
         }
     }
 
@@ -205,6 +357,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupNoteClearButton() {
         binding.btnClearNote.setOnClickListener {
             binding.etBatchName.text?.clear()
+            triggerHapticTick()
         }
 
         binding.etBatchName.addTextChangedListener(object : TextWatcher {
@@ -236,8 +389,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.captureButtonFrame.setOnClickListener {
-            triggerShutterFlash()
-            takePhotoWithTimestamp()
+            onShutterTriggered()
         }
 
         binding.btnFlash.setOnClickListener {
@@ -261,16 +413,30 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        // Fixed & Protected Share Logic with FileProvider
         binding.btnSharePhoto.setOnClickListener {
             val position = binding.viewPagerGallery.currentItem
             if (position in workplaceImageUris.indices) {
-                val uri = workplaceImageUris[position]
-                val shareIntent = Intent(Intent.ACTION_SEND).apply {
-                    type = "image/jpeg"
-                    putExtra(Intent.EXTRA_STREAM, uri)
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                try {
+                    val rawUri = workplaceImageUris[position]
+                    val shareUri: Uri = if (rawUri.scheme == "file") {
+                        val file = File(rawUri.path ?: "")
+                        FileProvider.getUriForFile(this, "${packageName}.provider", file)
+                    } else {
+                        rawUri
+                    }
+
+                    val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "image/jpeg"
+                        putExtra(Intent.EXTRA_STREAM, shareUri)
+                        clipData = ClipData.newRawUri("WorkPlace Photo", shareUri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(shareIntent, "Share Sample"))
+                } catch (e: Exception) {
+                    Log.e("WorkPlace", "Share failed: ${e.message}", e)
+                    showTopMessage("Unable to share photo")
                 }
-                startActivity(Intent.createChooser(shareIntent, "Share Sample"))
             }
         }
 
@@ -279,7 +445,6 @@ class MainActivity : AppCompatActivity() {
             if (position in workplaceImageUris.indices) {
                 val uriToDelete = workplaceImageUris[position]
                 try {
-                    // Handle deletion for both content URIs and direct file URIs
                     if (uriToDelete.scheme == "file") {
                         val file = File(uriToDelete.path ?: "")
                         if (file.exists()) file.delete()
@@ -289,7 +454,6 @@ class MainActivity : AppCompatActivity() {
 
                     workplaceImageUris.removeAt(position)
                     galleryAdapter?.notifyItemRemoved(position)
-                    Toast.makeText(this, "Sample deleted", Toast.LENGTH_SHORT).show()
 
                     if (workplaceImageUris.isEmpty()) {
                         closeInAppViewer()
@@ -301,7 +465,7 @@ class MainActivity : AppCompatActivity() {
                         loadLatestThumbnail()
                     }
                 } catch (e: Exception) {
-                    Toast.makeText(this, "Delete failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                    showTopMessage("Delete failed")
                 }
             }
         }
@@ -310,7 +474,7 @@ class MainActivity : AppCompatActivity() {
     private fun openInAppViewer() {
         syncAndLoadAllWorkPhotos()
         if (workplaceImageUris.isEmpty()) {
-            Toast.makeText(this, "No WorkPlace samples found", Toast.LENGTH_SHORT).show()
+            showTopMessage("No WorkPlace samples found")
             return
         }
 
@@ -333,18 +497,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Loads BOTH app-clicked photos and manually moved October photos
     private fun syncAndLoadAllWorkPhotos() {
         workplaceImageUris.clear()
 
-        // 1. Direct Physical File Check inside Pictures/WorkPlace
         val dir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "WorkPlace")
         if (dir.exists() && dir.isDirectory) {
             val physicalFiles = dir.listFiles { file ->
                 file.isFile && (file.extension.equals("jpg", true) || 
                                 file.extension.equals("jpeg", true) || 
                                 file.extension.equals("png", true))
-            }?.sortedByDescending { it.lastModified() } // Sort newest to oldest
+            }?.sortedByDescending { it.lastModified() }
 
             if (!physicalFiles.isNullOrEmpty()) {
                 for (file in physicalFiles) {
@@ -353,7 +515,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // 2. Fallback MediaStore query if physical folder yielded nothing
         if (workplaceImageUris.isEmpty()) {
             val projection = arrayOf(MediaStore.Images.Media._ID)
             val selection = "${MediaStore.Images.Media.RELATIVE_PATH} LIKE ?"
@@ -439,6 +600,11 @@ class MainActivity : AppCompatActivity() {
                     binding.tvZoomRatio.text = String.format(Locale.US, "%.1fx", it.zoomRatio)
                 }
             }
+
+            camera?.cameraInfo?.exposureState?.let { state ->
+                val step = state.exposureCompensationStep.toFloat()
+                binding.tvExposureValue.text = String.format(Locale.US, "%+.1f", currentExposureIndex * step)
+            }
         } catch (e: Exception) {
             Log.e("WorkPlace", "Camera bind failed: ${e.message}", e)
         }
@@ -449,14 +615,21 @@ class MainActivity : AppCompatActivity() {
 
         binding.focusRing.x = x - (binding.focusRing.width / 2)
         binding.focusRing.y = y - (binding.focusRing.height / 2)
-        binding.focusRing.alpha = 1f
+        binding.focusRing.scaleX = 1.35f
+        binding.focusRing.scaleY = 1.35f
+        binding.focusRing.alpha = 0.95f
+        binding.focusRing.visibility = View.VISIBLE
+
+        triggerHapticTick()
+
         binding.focusRing.animate()
-            .scaleX(1.3f).scaleY(1.3f)
-            .setDuration(200)
+            .scaleX(1.0f).scaleY(1.0f)
+            .setDuration(180)
             .withEndAction {
                 binding.focusRing.animate()
-                    .scaleX(1f).scaleY(1f).alpha(0f)
-                    .setDuration(350)
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction { binding.focusRing.visibility = View.GONE }
                     .start()
             }.start()
 
@@ -476,11 +649,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnFlash.imageTintList = android.content.res.ColorStateList.valueOf(
             if (isTorchOn) Color.parseColor("#00E676") else Color.WHITE
         )
+        triggerHapticTick()
     }
 
     private fun triggerShutterFlash() {
         val flash = AlphaAnimation(1f, 0f).apply {
-            duration = 100
+            duration = 90
             repeatCount = 1
             repeatMode = Animation.REVERSE
         }
@@ -501,7 +675,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onError(exc: ImageCaptureException) {
                     runOnUiThread {
-                        Toast.makeText(this@MainActivity, "Capture failed: ${exc.message}", Toast.LENGTH_SHORT).show()
+                        showTopMessage("Capture failed")
                     }
                 }
             }
@@ -540,15 +714,13 @@ class MainActivity : AppCompatActivity() {
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
             uri?.let {
                 contentResolver.openOutputStream(it)?.use { stream ->
-                    finalBitmap.compress(Bitmap.CompressFormat.JPEG, 92, stream)
+                    finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
                 }
             }
 
             val thumb = Bitmap.createScaledBitmap(finalBitmap, 128, 128, true)
-
             runOnUiThread {
                 binding.ivRecentThumbnail.setImageBitmap(thumb)
-                Toast.makeText(this@MainActivity, "Saved: $fileName", Toast.LENGTH_SHORT).show()
                 syncAndLoadAllWorkPhotos()
             }
         } catch (e: Exception) {
@@ -604,6 +776,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        activeCountDownTimer?.cancel()
         cameraExecutor.shutdown()
     }
 }

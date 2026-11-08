@@ -23,13 +23,11 @@
             app:scaleType="fitCenter"
             app:implementationMode="compatible" />
 
-        <!-- 3x3 Framing Grid -->
         <com.example.workplacecamera.GridOverlayView
             android:id="@+id/gridOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!-- Aspect Ratio Letterbox Masks (Top & Bottom for 1:1 or 4:3 true cropping) -->
         <View
             android:id="@+id/maskTop"
             android:layout_width="match_parent"
@@ -47,33 +45,49 @@
             android:visibility="gone" />
     </FrameLayout>
 
-    <!-- Top Floating Header Bar -->
+    <!-- TOP CONTROL BAR -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
+        android:paddingHorizontal="14dp"
         android:paddingTop="36dp"
         android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Flash -->
         <ImageButton
             android:id="@+id/btnFlash"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_glass_pill"
-            android:padding="9dp"
+            android:padding="8dp"
             android:src="@drawable/ic_flash"
             app:tint="#FFFFFF"
             android:contentDescription="Flash Toggle" />
 
+        <!-- Timer Button -->
+        <TextView
+            android:id="@+id/btnTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_glass_pill"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="⏱ Off"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="12sp" />
+
+        <!-- Note Input Pill -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="42dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            app:cardCornerRadius="21dp"
+            android:layout_marginHorizontal="8dp"
+            app:cardCornerRadius="20dp"
             app:cardBackgroundColor="#60000000"
             app:strokeColor="#35FFFFFF"
             app:strokeWidth="1dp">
@@ -83,7 +97,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="14dp">
+                android:paddingHorizontal="12dp">
 
                 <EditText
                     android:id="@+id/etBatchName"
@@ -91,7 +105,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="Enter Note Tag..."
+                    android:hint="Note Tag..."
                     android:textColorHint="#8AFFFFFF"
                     android:textColor="#FFFFFF"
                     android:textSize="13sp"
@@ -100,8 +114,8 @@
 
                 <ImageView
                     android:id="@+id/btnClearNote"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:contentDescription="Clear"
                     android:src="@android:drawable/ic_menu_close_clear_cancel"
                     app:tint="#B0FFFFFF"
@@ -109,29 +123,113 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Aspect Ratio -->
         <TextView
             android:id="@+id/btnAspectRatio"
             android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_glass_pill"
             android:gravity="center"
-            android:paddingHorizontal="14dp"
+            android:paddingHorizontal="12dp"
             android:text="4:3"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textSize="13sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
-    <!-- Tap Focus Reticle Ring -->
+    <!-- Top Status Notification Pill -->
+    <TextView
+        android:id="@+id/topStatusPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_top_toast_pill"
+        android:elevation="12dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="7dp"
+        android:text="Aspect Ratio: 4:3"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Vertical EV Controls -->
+    <LinearLayout
+        android:id="@+id/exposureControls"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/shape_glass_pill"
+        android:paddingVertical="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+
+        <TextView
+            android:id="@+id/btnExposureUp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvExposureValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0.0"
+            android:textColor="#00E676"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_marginVertical="3dp" />
+
+        <TextView
+            android:id="@+id/btnExposureDown"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Minimalist Frosted Focus Reticle Ring -->
     <ImageView
         android:id="@+id/focusRing"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:alpha="0"
-        android:src="@android:drawable/presence_online"
-        app:tint="#00E676"
+        android:visibility="gone"
+        android:src="@drawable/ic_focus_reticle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Centered Countdown Number Overlay -->
+    <TextView
+        android:id="@+id/tvCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="#FFFFFF"
+        android:textSize="96sp"
+        android:textStyle="bold"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="12"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- Zoom Badge -->
     <TextView

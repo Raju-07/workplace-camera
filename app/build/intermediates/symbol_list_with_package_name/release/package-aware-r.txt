@@ -2999,6 +2999,7 @@ drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_delete
 drawable ic_flash
+drawable ic_focus_reticle
 drawable ic_keyboard_black_24dp
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
@@ -3084,6 +3085,7 @@ drawable notify_panel_notification_icon_bg
 drawable shape_glass_pill
 drawable shape_shutter_inner
 drawable shape_shutter_outer
+drawable shape_top_toast_pill
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3189,9 +3191,12 @@ id bounceStart
 id btnAspectRatio
 id btnClearNote
 id btnDeletePhoto
+id btnExposureDown
+id btnExposureUp
 id btnFlash
 id btnGalleryClose
 id btnSharePhoto
+id btnTimer
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3281,6 +3286,7 @@ id etBatchName
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id exposureControls
 id fade
 id fill
 id fillCenter
@@ -3577,6 +3583,7 @@ id toggle
 id top
 id topBar
 id topPanel
+id topStatusPill
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -3586,6 +3593,8 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvCountdown
+id tvExposureValue
 id tvGalleryCounter
 id tvGallerySubtitle
 id tvZoomRatio
@@ -5248,3 +5257,4 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml file_paths

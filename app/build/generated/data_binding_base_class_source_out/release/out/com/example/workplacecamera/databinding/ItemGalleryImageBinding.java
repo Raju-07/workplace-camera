@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.workplacecamera.R;
+import com.example.workplacecamera.ZoomableImageView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -20,9 +20,10 @@ public final class ItemGalleryImageBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
-  public final ImageView ivGalleryItem;
+  public final ZoomableImageView ivGalleryItem;
 
-  private ItemGalleryImageBinding(@NonNull FrameLayout rootView, @NonNull ImageView ivGalleryItem) {
+  private ItemGalleryImageBinding(@NonNull FrameLayout rootView,
+      @NonNull ZoomableImageView ivGalleryItem) {
     this.rootView = rootView;
     this.ivGalleryItem = ivGalleryItem;
   }
@@ -55,7 +56,7 @@ public final class ItemGalleryImageBinding implements ViewBinding {
     int id;
     missingId: {
       id = R.id.ivGalleryItem;
-      ImageView ivGalleryItem = ViewBindings.findChildViewById(rootView, id);
+      ZoomableImageView ivGalleryItem = ViewBindings.findChildViewById(rootView, id);
       if (ivGalleryItem == null) {
         break missingId;
       }

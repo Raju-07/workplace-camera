@@ -1,5 +1,6 @@
 -keep class androidx.camera.core.impl.MetadataHolderService { <init>(); }
 -keep class androidx.core.app.CoreComponentFactory { <init>(); }
+-keep class androidx.core.content.FileProvider { <init>(); }
 -keep class androidx.profileinstaller.ProfileInstallReceiver { <init>(); }
 -keep class androidx.startup.InitializationProvider { <init>(); }
 -keep class com.example.workplacecamera.MainActivity { <init>(); }
@@ -58,6 +59,8 @@
 -keep class androidx.viewpager2.widget.ViewPager2 { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class com.example.workplacecamera.GridOverlayView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class com.example.workplacecamera.ZoomableImageView { <init>(android.content.Context, android.util.AttributeSet); }
 
 -keep class com.google.android.material.appbar.MaterialToolbar { <init>(android.content.Context, android.util.AttributeSet); }
 

@@ -1424,6 +1424,10 @@
         "source": "com.example.workplacecamera.app-appcompat-1.6.1-14:/color/abc_background_cache_hint_selector_material_light.xml"
     },
     {
+        "merged": "com.example.workplacecamera.app-merged_res-37:/drawable_ic_focus_reticle.xml.flat",
+        "source": "com.example.workplacecamera.app-main-38:/drawable/ic_focus_reticle.xml"
+    },
+    {
         "merged": "com.example.workplacecamera.app-merged_res-37:/color_material_slider_inactive_tick_marks_color.xml.flat",
         "source": "com.example.workplacecamera.app-material-1.11.0-11:/color/material_slider_inactive_tick_marks_color.xml"
     },
@@ -2002,6 +2006,10 @@
     {
         "merged": "com.example.workplacecamera.app-merged_res-37:/drawable-v23_mtrl_popupmenu_background_overlay.xml.flat",
         "source": "com.example.workplacecamera.app-material-1.11.0-11:/drawable-v23/mtrl_popupmenu_background_overlay.xml"
+    },
+    {
+        "merged": "com.example.workplacecamera.app-merged_res-37:/drawable_shape_top_toast_pill.xml.flat",
+        "source": "com.example.workplacecamera.app-main-38:/drawable/shape_top_toast_pill.xml"
     },
     {
         "merged": "com.example.workplacecamera.app-merged_res-37:/drawable-xxhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
@@ -2818,6 +2826,10 @@
     {
         "merged": "com.example.workplacecamera.app-merged_res-37:/drawable-mdpi-v4_abc_ab_share_pack_mtrl_alpha.9.png.flat",
         "source": "com.example.workplacecamera.app-appcompat-1.6.1-14:/drawable-mdpi-v4/abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "com.example.workplacecamera.app-merged_res-37:/xml_file_paths.xml.flat",
+        "source": "com.example.workplacecamera.app-main-38:/xml/file_paths.xml"
     },
     {
         "merged": "com.example.workplacecamera.app-merged_res-37:/drawable_mtrl_ic_cancel.xml.flat",

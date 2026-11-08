@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:background="#0A0A0C">
 
-    <ImageView
+    <com.example.workplacecamera.ZoomableImageView
         android:id="@+id/ivGalleryItem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

@@ -41,6 +41,12 @@ public final class ActivityMainBinding implements ViewBinding {
   public final ImageButton btnDeletePhoto;
 
   @NonNull
+  public final TextView btnExposureDown;
+
+  @NonNull
+  public final TextView btnExposureUp;
+
+  @NonNull
   public final ImageButton btnFlash;
 
   @NonNull
@@ -48,6 +54,9 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public final ImageButton btnSharePhoto;
+
+  @NonNull
+  public final TextView btnTimer;
 
   @NonNull
   public final FrameLayout cameraContainer;
@@ -60,6 +69,9 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public final EditText etBatchName;
+
+  @NonNull
+  public final LinearLayout exposureControls;
 
   @NonNull
   public final ImageView focusRing;
@@ -89,6 +101,15 @@ public final class ActivityMainBinding implements ViewBinding {
   public final LinearLayout topBar;
 
   @NonNull
+  public final TextView topStatusPill;
+
+  @NonNull
+  public final TextView tvCountdown;
+
+  @NonNull
+  public final TextView tvExposureValue;
+
+  @NonNull
   public final TextView tvGalleryCounter;
 
   @NonNull
@@ -106,28 +127,36 @@ public final class ActivityMainBinding implements ViewBinding {
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
       @NonNull ConstraintLayout bottomBar, @NonNull TextView btnAspectRatio,
       @NonNull ImageView btnClearNote, @NonNull ImageButton btnDeletePhoto,
+      @NonNull TextView btnExposureDown, @NonNull TextView btnExposureUp,
       @NonNull ImageButton btnFlash, @NonNull ImageButton btnGalleryClose,
-      @NonNull ImageButton btnSharePhoto, @NonNull FrameLayout cameraContainer,
-      @NonNull FrameLayout captureButtonFrame, @NonNull View captureButtonInner,
-      @NonNull EditText etBatchName, @NonNull ImageView focusRing,
+      @NonNull ImageButton btnSharePhoto, @NonNull TextView btnTimer,
+      @NonNull FrameLayout cameraContainer, @NonNull FrameLayout captureButtonFrame,
+      @NonNull View captureButtonInner, @NonNull EditText etBatchName,
+      @NonNull LinearLayout exposureControls, @NonNull ImageView focusRing,
       @NonNull LinearLayout galleryBottomBar, @NonNull ConstraintLayout galleryOverlay,
       @NonNull LinearLayout galleryTopHeader, @NonNull GridOverlayView gridOverlay,
       @NonNull ShapeableImageView ivRecentThumbnail, @NonNull View maskBottom,
-      @NonNull View maskTop, @NonNull LinearLayout topBar, @NonNull TextView tvGalleryCounter,
-      @NonNull TextView tvGallerySubtitle, @NonNull TextView tvZoomRatio,
-      @NonNull PreviewView viewFinder, @NonNull ViewPager2 viewPagerGallery) {
+      @NonNull View maskTop, @NonNull LinearLayout topBar, @NonNull TextView topStatusPill,
+      @NonNull TextView tvCountdown, @NonNull TextView tvExposureValue,
+      @NonNull TextView tvGalleryCounter, @NonNull TextView tvGallerySubtitle,
+      @NonNull TextView tvZoomRatio, @NonNull PreviewView viewFinder,
+      @NonNull ViewPager2 viewPagerGallery) {
     this.rootView = rootView;
     this.bottomBar = bottomBar;
     this.btnAspectRatio = btnAspectRatio;
     this.btnClearNote = btnClearNote;
     this.btnDeletePhoto = btnDeletePhoto;
+    this.btnExposureDown = btnExposureDown;
+    this.btnExposureUp = btnExposureUp;
     this.btnFlash = btnFlash;
     this.btnGalleryClose = btnGalleryClose;
     this.btnSharePhoto = btnSharePhoto;
+    this.btnTimer = btnTimer;
     this.cameraContainer = cameraContainer;
     this.captureButtonFrame = captureButtonFrame;
     this.captureButtonInner = captureButtonInner;
     this.etBatchName = etBatchName;
+    this.exposureControls = exposureControls;
     this.focusRing = focusRing;
     this.galleryBottomBar = galleryBottomBar;
     this.galleryOverlay = galleryOverlay;
@@ -137,6 +166,9 @@ public final class ActivityMainBinding implements ViewBinding {
     this.maskBottom = maskBottom;
     this.maskTop = maskTop;
     this.topBar = topBar;
+    this.topStatusPill = topStatusPill;
+    this.tvCountdown = tvCountdown;
+    this.tvExposureValue = tvExposureValue;
     this.tvGalleryCounter = tvGalleryCounter;
     this.tvGallerySubtitle = tvGallerySubtitle;
     this.tvZoomRatio = tvZoomRatio;
@@ -195,6 +227,18 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.btnExposureDown;
+      TextView btnExposureDown = ViewBindings.findChildViewById(rootView, id);
+      if (btnExposureDown == null) {
+        break missingId;
+      }
+
+      id = R.id.btnExposureUp;
+      TextView btnExposureUp = ViewBindings.findChildViewById(rootView, id);
+      if (btnExposureUp == null) {
+        break missingId;
+      }
+
       id = R.id.btnFlash;
       ImageButton btnFlash = ViewBindings.findChildViewById(rootView, id);
       if (btnFlash == null) {
@@ -210,6 +254,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.btnSharePhoto;
       ImageButton btnSharePhoto = ViewBindings.findChildViewById(rootView, id);
       if (btnSharePhoto == null) {
+        break missingId;
+      }
+
+      id = R.id.btnTimer;
+      TextView btnTimer = ViewBindings.findChildViewById(rootView, id);
+      if (btnTimer == null) {
         break missingId;
       }
 
@@ -234,6 +284,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.etBatchName;
       EditText etBatchName = ViewBindings.findChildViewById(rootView, id);
       if (etBatchName == null) {
+        break missingId;
+      }
+
+      id = R.id.exposureControls;
+      LinearLayout exposureControls = ViewBindings.findChildViewById(rootView, id);
+      if (exposureControls == null) {
         break missingId;
       }
 
@@ -291,6 +347,24 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.topStatusPill;
+      TextView topStatusPill = ViewBindings.findChildViewById(rootView, id);
+      if (topStatusPill == null) {
+        break missingId;
+      }
+
+      id = R.id.tvCountdown;
+      TextView tvCountdown = ViewBindings.findChildViewById(rootView, id);
+      if (tvCountdown == null) {
+        break missingId;
+      }
+
+      id = R.id.tvExposureValue;
+      TextView tvExposureValue = ViewBindings.findChildViewById(rootView, id);
+      if (tvExposureValue == null) {
+        break missingId;
+      }
+
       id = R.id.tvGalleryCounter;
       TextView tvGalleryCounter = ViewBindings.findChildViewById(rootView, id);
       if (tvGalleryCounter == null) {
@@ -322,10 +396,12 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((ConstraintLayout) rootView, bottomBar, btnAspectRatio,
-          btnClearNote, btnDeletePhoto, btnFlash, btnGalleryClose, btnSharePhoto, cameraContainer,
-          captureButtonFrame, captureButtonInner, etBatchName, focusRing, galleryBottomBar,
-          galleryOverlay, galleryTopHeader, gridOverlay, ivRecentThumbnail, maskBottom, maskTop,
-          topBar, tvGalleryCounter, tvGallerySubtitle, tvZoomRatio, viewFinder, viewPagerGallery);
+          btnClearNote, btnDeletePhoto, btnExposureDown, btnExposureUp, btnFlash, btnGalleryClose,
+          btnSharePhoto, btnTimer, cameraContainer, captureButtonFrame, captureButtonInner,
+          etBatchName, exposureControls, focusRing, galleryBottomBar, galleryOverlay,
+          galleryTopHeader, gridOverlay, ivRecentThumbnail, maskBottom, maskTop, topBar,
+          topStatusPill, tvCountdown, tvExposureValue, tvGalleryCounter, tvGallerySubtitle,
+          tvZoomRatio, viewFinder, viewPagerGallery);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

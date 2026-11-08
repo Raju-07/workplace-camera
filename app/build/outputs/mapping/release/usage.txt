@@ -6724,7 +6724,8 @@ androidx.core.content.ContentValuesKt
 androidx.core.content.ContextCompat$Api16Impl:
     private void <init>()
 androidx.core.content.ContextCompat$Api17Impl
-androidx.core.content.ContextCompat$Api19Impl
+androidx.core.content.ContextCompat$Api19Impl:
+    private void <init>()
 androidx.core.content.ContextCompat$Api21Impl:
     private void <init>()
 androidx.core.content.ContextCompat$Api23Impl:
@@ -6752,8 +6753,6 @@ androidx.core.content.ContextCompat:
     public static android.content.Context getContextForLanguage(android.content.Context)
     public static java.io.File getDataDir(android.content.Context)
     public static android.view.Display getDisplayOrDefault(android.content.Context)
-    public static java.io.File[] getExternalCacheDirs(android.content.Context)
-    public static java.io.File[] getExternalFilesDirs(android.content.Context,java.lang.String)
     public static java.io.File getNoBackupFilesDir(android.content.Context)
     public static java.io.File[] getObbDirs(android.content.Context)
     public static java.lang.String getString(android.content.Context,int)
@@ -6765,10 +6764,8 @@ androidx.core.content.ContextCompat:
     public static void startActivity(android.content.Context,android.content.Intent,android.os.Bundle)
     public static void startForegroundService(android.content.Context,android.content.Intent)
 androidx.core.content.ContextKt
-androidx.core.content.FileProvider$Api21Impl
-androidx.core.content.FileProvider$PathStrategy
-androidx.core.content.FileProvider$SimplePathStrategy
-androidx.core.content.FileProvider
+androidx.core.content.FileProvider$Api21Impl:
+    private void <init>()
 androidx.core.content.IntentCompat$Api15Impl
 androidx.core.content.IntentCompat$Api33Impl
 androidx.core.content.IntentCompat
@@ -11940,6 +11937,7 @@ com.example.workplacecamera.R$layout:
     private void <init>()
 com.example.workplacecamera.R$string
 com.example.workplacecamera.R$style
+com.example.workplacecamera.R$xml
 com.example.workplacecamera.R
 com.example.workplacecamera.databinding.ActivityMainBinding:
     public synthetic bridge android.view.View getRoot()
@@ -24260,7 +24258,6 @@ kotlin.ranges.RangesKt___RangesKt:
     public static final byte coerceIn(byte,byte,byte)
     public static final double coerceIn(double,double,double)
     public static final float coerceIn(float,float,float)
-    public static final int coerceIn(int,int,int)
     public static final int coerceIn(int,kotlin.ranges.ClosedRange)
     public static final long coerceIn(long,long,long)
     public static final long coerceIn(long,kotlin.ranges.ClosedRange)
@@ -26291,7 +26288,6 @@ androidx.activity.FullyDrawnReporter:
     public boolean reportPosted
     public final java.lang.Runnable reportRunnable
     public int reporterCount
-    public final void fullyDrawnReported()
     public static boolean isFullyDrawnReported()
 androidx.activity.FullyDrawnReporterOwner
 androidx.activity.ImmLeaksCleaner:
@@ -27032,7 +27028,7 @@ androidx.appcompat.app.LayoutIncludeDetector:
     public static void forceOnClosed()
     public static void forceOnConfigureFailed()
     public static androidx.appcompat.app.LayoutIncludeDetector from(androidx.camera.core.CameraInfo)
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper generateFontRequestFrom(android.content.pm.ProviderInfo,android.content.pm.PackageManager)
+    public final androidx.core.provider.FontRequest generateFontRequestFrom(android.content.pm.ProviderInfo,android.content.pm.PackageManager)
     public static java.util.List get()
     public static java.util.List get$1()
     public final int getAutoSizeMaxTextSize()
@@ -27059,7 +27055,7 @@ androidx.appcompat.app.LayoutIncludeDetector:
     public static com.google.common.util.concurrent.ListenableFuture openCaptureSession()
     public java.lang.CharSequence process(java.lang.CharSequence,int,int,boolean)
     public static android.content.pm.ProviderInfo queryDefaultInstalledContentProvider()
-    public static androidx.appcompat.widget.AppCompatBackgroundHelper queryForDefaultFontRequest()
+    public static androidx.core.provider.FontRequest queryForDefaultFontRequest()
     public final void setAutoSizeTextTypeUniformWithConfiguration()
     public final void setAutoSizeTextTypeUniformWithPresetSizes()
     public final void setAutoSizeTextTypeWithDefaults()
@@ -27567,18 +27563,7 @@ androidx.appcompat.widget.AppCompatAutoCompleteTextView:
     public final void initEmojiKeyListener()
 androidx.appcompat.widget.AppCompatBackgroundHelper:
     public static boolean applyFrameworkTintUsingColorFilter()
-    public static java.lang.String createIdentifier()
-    public static int getBottomInset()
-    public static java.util.List getCertificates()
-    public static int getCertificatesArrayResId()
-    public static java.lang.String getId()
-    public static java.lang.String getProviderAuthority()
-    public static java.lang.String getProviderPackage()
-    public static java.lang.String getQuery()
-    public static int getTopInset()
     public static boolean shouldApplyFrameworkTintUsingColorFilter()
-    public static void styleItem()
-    public static void styleItem$1()
 androidx.appcompat.widget.AppCompatCheckedTextViewHelper:
     public static int getCompoundPaddingLeft()
     public static android.content.res.ColorStateList getSupportButtonTintList()
@@ -27645,16 +27630,18 @@ androidx.appcompat.widget.AppCompatEmojiEditTextHelper:
 androidx.appcompat.widget.AppCompatEmojiTextHelper:
     public final android.text.InputFilter[] getFilters(android.text.InputFilter[])
 androidx.appcompat.widget.AppCompatHintHelper
-androidx.appcompat.widget.AppCompatImageHelper$$InternalSyntheticThrowCCEIfNotNull$30$10a30577155ed305124b1eecd11a353f50cd4eeab38bf8ffdb2be587bc20d1f7$0
 androidx.appcompat.widget.AppCompatImageHelper:
-    public com.google.android.material.appbar.AppBarLayout mInternalImageTint
-    public java.lang.Object mTmpInfo
+    public androidx.appcompat.widget.TintInfo mInternalImageTint
+    public androidx.appcompat.widget.TintInfo mTmpInfo
     public static boolean applyFrameworkTintUsingColorFilter()
     public final void applyImageLevel()
     public final android.content.res.ColorStateList getSupportImageTintList()
     public final android.graphics.PorterDuff$Mode getSupportImageTintMode()
     public final boolean hasOverlappingRendering()
     public static void obtainLevelFromDrawable()
+    public final void setImageResource(int)
+    public final void setSupportImageTintList(android.content.res.ColorStateList)
+    public final void setSupportImageTintMode(android.graphics.PorterDuff$Mode)
     public static boolean shouldApplyFrameworkTintUsingColorFilter()
 androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView:
     public final void initEmojiKeyListener()
@@ -28885,7 +28872,7 @@ androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat$Sessio
     public final android.hardware.camera2.CameraCaptureSession$StateCallback getStateCallback()
     public final void setInputConfiguration()
     public final void setSessionParameters()
-androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat$SessionConfigurationCompatBaseImpl$$InternalSyntheticThrowCCEIfNotNull$190$84efd26845071dff8a85c5f025ae1e5f5f82480fa147855e2acc07f01a25ec69$0
+androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat$SessionConfigurationCompatBaseImpl$$InternalSyntheticThrowCCEIfNotNull$189$84efd26845071dff8a85c5f025ae1e5f5f82480fa147855e2acc07f01a25ec69$0
 androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat$SessionConfigurationCompatBaseImpl
 androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat$SessionConfigurationCompatImpl
 androidx.camera.camera2.internal.compat.params.SessionConfigurationCompat:
@@ -30583,6 +30570,12 @@ androidx.core.content.ContextCompat$LegacyServiceMapHolder
 androidx.core.content.ContextCompat:
     public static final java.lang.Object sSync
     public static android.util.TypedValue sTempValue
+androidx.core.content.FileProvider$PathStrategy:
+    public abstract java.io.File getFileForUri(android.net.Uri)
+    public abstract android.net.Uri getUriForFile()
+androidx.core.content.FileProvider$SimplePathStrategy:
+    public static void addRoot()
+    public final android.net.Uri getUriForFile()
 androidx.core.content.PermissionChecker
 androidx.core.content.res.CamColor:
     public final float mM
@@ -30610,7 +30603,7 @@ androidx.core.content.res.FontResourcesParserCompat$FontFileResourceEntry:
     public static boolean isItalic()
 androidx.core.content.res.FontResourcesParserCompat$ProviderResourceEntry:
     public static int getFetchStrategy()
-    public static androidx.appcompat.widget.AppCompatBackgroundHelper getRequest()
+    public static androidx.core.provider.FontRequest getRequest()
     public static java.lang.String getSystemFontFamilyName()
     public static int getTimeout()
 androidx.core.content.res.FontResourcesParserCompat
@@ -30762,7 +30755,7 @@ androidx.core.os.LocaleListCompat:
     public final int size()
     public final java.lang.String toLanguageTags()
     public static androidx.core.os.LocaleListCompat wrap(android.os.LocaleList)
-androidx.core.os.LocaleListCompatWrapper$$InternalSyntheticThrowCCEIfNotNull$190$dd0d3399d7d164768be69e26cdc88e49809bc46afb623c060d951b7b929d77ad$0
+androidx.core.os.LocaleListCompatWrapper$$InternalSyntheticThrowCCEIfNotNull$189$dd0d3399d7d164768be69e26cdc88e49809bc46afb623c060d951b7b929d77ad$0
 androidx.core.os.LocaleListCompatWrapper
 androidx.core.os.LocaleListInterface:
     public abstract java.util.Locale get()
@@ -30784,7 +30777,18 @@ androidx.core.provider.CallbackWithHandler$2
 androidx.core.provider.CallbackWithHandler
 androidx.core.provider.CalleeHandler
 androidx.core.provider.FontProvider$$InternalSyntheticLambda$1$dea2eb8be429cfd62f5acef186358e480674e03c0f86125880269ad68ae94a4b$0
-androidx.core.provider.FontRequest
+androidx.core.provider.FontRequest:
+    public static java.lang.String createIdentifier()
+    public static int getBottomInset()
+    public static java.util.List getCertificates()
+    public static int getCertificatesArrayResId()
+    public static java.lang.String getId()
+    public static java.lang.String getProviderAuthority()
+    public static java.lang.String getProviderPackage()
+    public static java.lang.String getQuery()
+    public static int getTopInset()
+    public static void styleItem()
+    public static void styleItem$1()
 androidx.core.provider.FontRequestWorker$1:
     public final androidx.core.provider.FontRequestWorker$TypefaceResult call()
 androidx.core.provider.FontRequestWorker$3
@@ -30792,7 +30796,7 @@ androidx.core.provider.FontRequestWorker$4
 androidx.core.provider.FontRequestWorker$TypefaceResult:
     public static boolean isSuccess()
 androidx.core.provider.FontRequestWorker:
-    public static java.lang.String createCacheId(androidx.appcompat.widget.AppCompatBackgroundHelper,int)
+    public static java.lang.String createCacheId(androidx.core.provider.FontRequest,int)
 androidx.core.provider.FontsContractCompat$FontFamilyResult
 androidx.core.provider.FontsContractCompat$FontInfo:
     public static int getResultCode()
@@ -33484,7 +33488,7 @@ androidx.transition.ViewUtilsBase
 androidx.transition.Visibility$DisappearListener:
     public final void hideViewWhenNotCanceled()
 androidx.transition.Visibility
-androidx.transition.WindowIdApi14$$InternalSyntheticThrowCCEIfNotNull$190$346ba31081d848221d10738ffacfe8b42a1cf2bcc44a47580e10fd7ecc1dfab1$0
+androidx.transition.WindowIdApi14$$InternalSyntheticThrowCCEIfNotNull$189$346ba31081d848221d10738ffacfe8b42a1cf2bcc44a47580e10fd7ecc1dfab1$0
 androidx.transition.WindowIdApi14
 androidx.vectordrawable.graphics.drawable.AndroidResources:
     public static final int[] STYLEABLE_ANIMATOR
@@ -33694,9 +33698,13 @@ androidx.viewpager2.widget.ViewPager2:
     public static void requestTransform()
     public static void setOrientation()
     public static void unregisterCurrentItemDataSetTracker()
+com.example.workplacecamera.GalleryAdapter$$InternalSyntheticLambda$2$5383a083ea59f6d377bc6b63605c047e437f3c214f1008fbcdcb3bda16ed295c$0
+com.example.workplacecamera.GalleryAdapter$$InternalSyntheticLambda$3$bd3f52751c73adb2153f1095031ba1ae509d3f31562b865d16236b6670dddd04$0
 com.example.workplacecamera.GalleryAdapter$GalleryViewHolder:
-    public static android.widget.ImageView getImageView()
+    public static com.example.workplacecamera.ZoomableImageView getZoomableView()
 com.example.workplacecamera.GalleryAdapter:
+    public static int calculateInSampleSize()
+    public static android.graphics.Bitmap decodeSampledBitmap()
     public static void onBindViewHolder$1()
     public static com.example.workplacecamera.GalleryAdapter$GalleryViewHolder onCreateViewHolder()
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$0c98e0d381f94eb4e2aa9c206a7546a29cee0c5b67213623ad586eaafbf0753b$0
@@ -33709,8 +33717,13 @@ com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$8e4b01accd3f
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$8e4b01accd3f2ed4ee2307b25548eaeccb68a7e079aff94424d3b87614ddf672$2
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$8e4b01accd3f2ed4ee2307b25548eaeccb68a7e079aff94424d3b87614ddf672$3
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$9dd36fe7cf22956989075e5d22b1e2553d4bbeef8f6e18306a649436b8c2586a$0
+com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$d3543cdc221ce9047c0320664c5bac29a5e55f540d41dc15ff39522c444f9a86$0
+com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$ec861227a3865adba35af98dbd105ea98173a27f85f9004685b1a92917fe30fe$0
+com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$1$ec861227a3865adba35af98dbd105ea98173a27f85f9004685b1a92917fe30fe$1
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$2$5bb78c4d4a987eff2e60fb8dc419fd1900d0af2b3618b99bd260509da51249ec$0
 com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$2$ad8d14d3ff7b6742cc4bee1701e0e8308f414fad78782b048c8cc38552004808$0
+com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$2$c67c03e831f69e7af093e0a038fecab78df3d8ab65bfc2ea62e710242f9b467a$0
+com.example.workplacecamera.MainActivity$$InternalSyntheticLambda$3$1156a7ff3c7e089c81e3564674c7470cc6bb015a81028528f05bffe194326a24$0
 com.example.workplacecamera.MainActivity$bindCameraUseCases$1
 com.example.workplacecamera.MainActivity$onCreate$1
 com.example.workplacecamera.MainActivity$sam$androidx_lifecycle_Observer$0:
@@ -33724,20 +33737,26 @@ com.example.workplacecamera.MainActivity:
     public static void checkAndRequestPermissions()
     public static void focusOnPoint()
     public static android.graphics.Bitmap imageProxyToBitmap()
+    public static void initVibrator()
     public static void openInAppViewer()
     public static void processAndSaveWithTimestamp()
     public static android.graphics.Bitmap rotateBitmap()
     public static void setupAspectRatioToggle()
+    public static void setupExposureControls()
     public static void setupGesturesAndControls()
     public static void setupInAppViewer()
     public static void setupNoteClearButton()
+    public static void setupTimerToggle()
+    public static void startCountdown()
     public static void toggleTorch()
     public final void updateViewfinderMasking(java.lang.String)
 com.example.workplacecamera.R$id
 com.example.workplacecamera.R$layout
+com.example.workplacecamera.ZoomableImageView$1
 com.example.workplacecamera.databinding.ActivityMainBinding:
     public final androidx.constraintlayout.widget.ConstraintLayout bottomBar
     public final android.view.View captureButtonInner
+    public final android.widget.LinearLayout exposureControls
     public final android.widget.LinearLayout galleryBottomBar
     public final android.widget.LinearLayout galleryTopHeader
     public final com.example.workplacecamera.GridOverlayView gridOverlay
@@ -34218,7 +34237,7 @@ com.google.android.material.appbar.AppBarLayout$BaseBehavior:
     public final void onFlingFinished$1()
     public static boolean onLayoutChild()
     public static boolean onMeasureChild()
-    public static void onNestedPreScroll(int)
+    public static void onNestedPreScroll$1()
     public static void onNestedScroll$2()
     public static void onRestoreInstanceState()
     public static android.os.Parcelable onSaveInstanceState()
@@ -34855,12 +34874,12 @@ com.google.android.material.datepicker.CalendarConstraints:
     public static int getYearSpan()
 com.google.android.material.datepicker.CalendarItemStyle
 com.google.android.material.datepicker.CalendarStyle:
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper day
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper invalidDay
+    public final androidx.core.provider.FontRequest day
+    public final androidx.core.provider.FontRequest invalidDay
     public final android.graphics.Paint rangeFill
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper selectedDay
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper selectedYear
-    public final androidx.appcompat.widget.AppCompatBackgroundHelper todayDay
+    public final androidx.core.provider.FontRequest selectedDay
+    public final androidx.core.provider.FontRequest selectedYear
+    public final androidx.core.provider.FontRequest todayDay
 com.google.android.material.datepicker.DateSelector
 com.google.android.material.datepicker.DateStrings
 com.google.android.material.datepicker.DateValidatorPointForward$1

@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+    <!-- Precision Corner Brackets -->
+    <path
+        android:strokeColor="#EEFFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 8,20 L 8,8 L 20,8 M 44,8 L 56,8 L 56,20 M 56,44 L 56,56 L 44,56 M 20,56 L 8,56 L 8,44" />
+    <!-- Center Precision Crosshair -->
+    <path
+        android:strokeColor="#CCFFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M 32,29 L 32,35 M 29,32 L 35,32" />
+</vector>

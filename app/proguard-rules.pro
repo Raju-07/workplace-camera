@@ -4,8 +4,12 @@
     public static * bind(...);
 }
 
-# Keep Custom Grid View
+# Keep Custom Grid View & Zoom View
 -keep class com.example.workplacecamera.GridOverlayView { *; }
+-keep class com.example.workplacecamera.ZoomableImageView { *; }
+
+# Keep FileProvider for Sharing
+-keep class androidx.core.content.FileProvider { *; }
 
 # Keep CameraX internals
 -keep class androidx.camera.core.** { *; }
